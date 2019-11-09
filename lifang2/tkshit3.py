@@ -388,7 +388,7 @@ class MainPage:
                                 if datetime.datetime.combine(input_date,times[stall][0][0]) <= datetime.datetime.combine(input_date,input_time) <= datetime.datetime.combine(input_date,times[stall][0][1]):
                                     self.stalls[i][j].pack(pady=5, fill=X)
                                 else:
-                                    getattr(self,stall).forget()
+                                    getattr(self, stall).forget()
 
                         elif input_day == 5:
                             if times[stall][1]:
@@ -397,7 +397,7 @@ class MainPage:
                                     if datetime.datetime.combine(input_date,times[stall][1][0]) <= datetime.datetime.combine(input_date,input_time) <= datetime.datetime.combine(input_date+datetime.timedelta(days=1),times[stall][1][1]):
                                         self.stalls[i][j].pack(pady=5, fill=X)
                                     else:
-                                        getattr(self,stall).forget()
+                                        getattr(self, stall).forget()
                                 else:
                                     if datetime.datetime.combine(input_date,times[stall][1][0]) <= datetime.datetime.combine(input_date,input_time) <= datetime.datetime.combine(input_date,times[stall][1][1]):
                                         self.stalls[i][j].pack(pady=5, fill=X)
