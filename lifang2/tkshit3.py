@@ -264,8 +264,34 @@ class MainPage:
         self.which_menu()
         back_button.pack(side=BOTTOM, fill=X, pady=15)
 
-    def get_other_day_stall(self):
 
+    def no_input_stalls(self):
+        global back_button, input_day, input_time,input_date, day_track, date_track, time_track
+        self.choose_date.grid_forget()
+        self.blank.grid_forget()
+        self.blank2.grid_forget()
+        self.enter_button.grid_forget()
+        self.year_label.grid_forget()
+        self.year_entry.grid_forget()
+        self.month_label.grid_forget()
+        self.month_entry.grid_forget()
+        self.day_label.grid_forget()
+        self.day_entry.grid_forget()
+        self.hour_label.grid_forget()
+        self.hour_entry.grid_forget()
+        self.minute_label.grid_forget()
+        self.minute_entry.grid_forget()
+        self.enter_button.grid_forget()
+        back_button.grid_forget()
+        back_button = Button(self.frame, text="Back", bg="BLUE", width=10, command=lambda: back_to_prev_page(3))
+        self.choose_label.pack()
+        input_day = day_track
+        input_date = date_track
+        input_time = time_track
+        self.which_menu()
+        back_button.pack(pady=10, fill=X)
+
+    def get_other_day_stall(self):
         global back_button
         self.choice = 2
         self.B1.forget()
@@ -290,20 +316,36 @@ class MainPage:
         back_button.grid(row=7, column=0, columnspan=6)
 
     def check(self):
-        global input_date, input_day, input_time
+        global input_date, input_day, input_time, day_track, date_track, time_track
         valid_date = True
         try:
-            # input_date = datetime.date(int(self.year_entry.get()), int(self.month_entry.get()), int(self.day_entry.get()))
-            # input_time = datetime.time(int(self.hour_entry.get()), int(self.minute_entry.get()))
             input_date = datetime.date(int(self.year_entry.get()), int(self.month_entry.get()), int(self.day_entry.get()))
             input_time = datetime.time(int(self.hour_entry.get()), int(self.minute_entry.get()))
+            integer_year = int(self.year_entry.get())
+            try:
+                if integer_year < 2000:
+                    valid_date = False
+            except:
+                pass
+
         except:
-            valid_date = False
-        if valid_date == True:
-            input_day = input_date.weekday()
-            self.display_other_day_stalls()
+            if not self.year_entry.get() and not self.month_entry.get() and not self.day_entry.get() and not self.hour_entry.get() and not self.month_entry.get():
+                valid_date = True
+            else:
+                valid_date = False
+
+        if valid_date:
+            if not self.year_entry.get() or not self.month_entry.get() or not self.day_entry.get() or not self.hour_entry.get() or not self.month_entry.get():
+                self.no_input_stalls()
+            else:
+                input_day = input_date.weekday()
+                self.display_other_day_stalls()
         else:
-            messagebox.showinfo("INVALID !!!", "Select a valid date")
+            try:
+                if integer_year < 1950:
+                    messagebox.showinfo("INVALID !!!", 'Select a valid year')
+            except:
+                messagebox.showinfo("INVALID !!!", "Select a valid date")
 
     def display_other_day_stalls(self):
         global back_button, input_day, input_time
@@ -336,8 +378,6 @@ class MainPage:
                 for j in range(len(self.stalls[i])):
                     for stall in times:
                         if input_day in range(0,5):
-                            # if datetime.time(times[stall][0][0][0],times[stall][0][0][1]) <= input_time <= datetime.time(times[stall][0][1][0],times[stall][0][1][1]):
-                            # if times[stall][0][0] <= input_time <= times[stall][0][1]:
                             if times[stall][0][1] == datetime.time(0,0):
                                 if datetime.datetime.combine(input_date,times[stall][0][0]) <= datetime.datetime.combine(input_date,input_time) <= datetime.datetime.combine(input_date+datetime.timedelta(days=1),times[stall][0][1]):
                                     self.stalls[i][j].pack(pady=5, fill=X)
@@ -351,7 +391,7 @@ class MainPage:
                                     getattr(self,stall).forget()
 
                         elif input_day == 5:
-                            if times[stall][1] is not None:
+                            if times[stall][1]:
                                 # if times[stall][1][0] <= input_time <= times[stall][1][1]
                                 if times[stall][1][1] == datetime.time(0,0):
                                     if datetime.datetime.combine(input_date,times[stall][1][0]) <= datetime.datetime.combine(input_date,input_time) <= datetime.datetime.combine(input_date+datetime.timedelta(days=1),times[stall][1][1]):
@@ -364,7 +404,7 @@ class MainPage:
                                     else:
                                         getattr(self,stall).forget()
                         else:
-                            if times[stall][2] is not None:
+                            if times[stall][2]:
                                 if times[stall][2][0] <= input_time <= times[stall][2][1]:
                                     self.stalls[i][j].pack(pady=5, fill=X)
                                 else:
