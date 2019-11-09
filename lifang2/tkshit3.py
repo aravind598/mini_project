@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 import datetime
 from tkinter import messagebox
 import pickle
@@ -49,6 +50,7 @@ def back_2():
     m.minute_label.grid_forget()
     m.minute_entry.grid_forget()
     m.enter_button.grid_forget()
+    m.blank.grid_forget()
     back_button.grid_forget()
     m.welcome_message.pack()
     m.B1.pack(pady=10)
@@ -66,21 +68,23 @@ def back_3():
             for j in range(len(m.stalls[i])):
                 m.stalls[i][j].forget()
     back_button.pack_forget()
-    m.choose_date.grid(row=0, column=1)
-    m.year_label.grid(row=2, column=0, sticky=W)
-    m.year_entry.grid(row=2, column=2, )
-    m.month_label.grid(row=3, column=0, sticky=W)
-    m.month_entry.grid(row=3, column=2)
-    m.day_label.grid(row=4, column=0, sticky=W)
-    m.day_entry.grid(row=4, column=2)
-    m.hour_label.grid(row=5, column=0, sticky=W)
-    m.hour_entry.grid(row=5, column=2)
-    m.minute_label.grid(row=6, column=0, sticky=W)
-    m.minute_entry.grid(row=6, column=2)
-    m.enter_button.grid(row=7, column=1)
+    m.choose_date.grid(row=0, column=0, columnspan=6)
+    m.blank.grid(row=1)
+    m.day_label.grid(row=2, column=0)
+    m.day_entry.grid(row=2, column=1)
+    m.month_label.grid(row=2, column=2)
+    m.month_entry.grid(row=2, column=3)
+    m.year_label.grid(row=2, column=4)
+    m.year_entry.grid(row=2, column=5)
+    m.hour_label.grid(row=4, column=0)
+    m.hour_entry.grid(row=4, column=1)
+    m.minute_label.grid(row=4, column=2)
+    m.minute_entry.grid(row=4, column=3)
+    m.blank2.grid(row=5)
+    m.enter_button.grid(row=6, column=0, columnspan=6)
     back_button = Button(m.frame, text="Back", bg="BLUE", width=10,
                          command=lambda: back_to_prev_page(2))
-    back_button.grid(row=8, column=1)
+    back_button.grid(row=7, column=0, columnspan=6)
 
 
 def back_4():
@@ -215,24 +219,61 @@ class MainPage:
 
         self.stalls = {(0, 1, 2, 3, 4, 5, 6): [self.mc_donalds, self.subway, self.pizza_hut, self.kfc], (0, 1, 2, 3, 4, 5): [self.sandwich_guys]}
 
-        self.year_label = Label(self.frame, text="Year :")
-        self.month_label = Label(self.frame, text="Month :")
-        self.day_label = Label(self.frame, text="Day : ")
-        self.hour_label = Label(self.frame, text="Hour : ")
-        self.minute_label = Label(self.frame, text="Minute : ")
-        self.year_entry = Entry(self.frame, width=6, )
-        self.month_entry = Entry(self.frame, width=6)
-        self.day_entry = Entry(self.frame, width=6)
-        self.hour_entry = Entry(self.frame, width=6)
-        self.minute_entry = Entry(self.frame, width=6)
+        # self.year_label = Label(self.frame, text="Year :")
+        # self.month_label = Label(self.frame, text="Month :")
+        # self.day_label = Label(self.frame, text="Day : ")
+        # self.hour_label = Label(self.frame, text="Hour : ")
+        # self.minute_label = Label(self.frame, text="Minute : ")
+        # self.year_entry = Entry(self.frame, width=6, )
+        # self.month_entry = Entry(self.frame, width=6)
+        # self.day_entry = Entry(self.frame, width=6)
+        # self.hour_entry = Entry(self.frame, width=6)
+        # self.minute_entry = Entry(self.frame, width=6)
+        global days_28, days_29, days_30, days_31, daylist
+        days_28 = [x for x in range(1,29)]
+        days_29 = [x for x in range(1,30)]
+        days_30 = [x for x in range(1,31)]
+        days_31 = [x for x in range(1,32)]
+        daylist = days_31
+
+        self.year_label = Label(self.frame, text = " / ")
+        self.year_entry = ttk.Combobox(self.frame, values = [2019,2020,2021], width=5)
+        self.month_label = Label(self.frame, text = " / ")
+        self.month_entry = ttk.Combobox(self.frame, values = [1,2,3,4,5,6,7,8,9,10,11,12], width=5)
+        self.year_entry.bind("<<ComboboxSelected>>", lambda _: self.daypicker())
+        self.month_entry.bind("<<ComboboxSelected>>", lambda _: self.daypicker())
+        self.day_label = Label(self.frame, text = "Date: ")
+        self.day_entry = ttk.Combobox(self.frame, values = days_28, width=5)
+        self.hour_label = Label(self.frame, text = "Time: ")
+        self.hour_entry = ttk.Combobox(self.frame, values = [x for x in range(0, 24)], width=5)
+        self.minute_label = Label(self.frame, text = " : ")
+        self.minute_entry = ttk.Combobox(self.frame, values = ['{:02d}'.format(x) for x in range(0, 60)], width=5)
         self.enter_button = Button(self.frame, text=" ENTER ", command=self.check, activebackground="Green", width=10)
 
         self.error_label = Label(self.frame, text="INVALID !!!", fg="RED")
 
         self.back_button = Button(self.frame, text="Back", bg="BLUE", command=lambda: back_to_prev_page(1))
         self.choose_label = Label(self.frame, text="  Choose a store")
-        self.choose_date = Label(self.frame, text=" Choose a date ", width=15)
+        self.choose_date = Label(self.frame, text=" Type in date/time or select from the dropdown boxes: ")
+        self.blank = Label(self.frame, text="  ")
+        self.blank2 = Label(self.frame, text="  ")
         self.display_mainpage()
+
+    def daypicker(self):
+        global daylist
+        try:
+            if int(self.month_entry.get()) in {1,3,5,7,8,10,12}:
+                daylist = days_31
+            elif int(self.month_entry.get()) in {4,6,9,11}:
+                daylist = days_30
+            elif int(self.month_entry.get()) == 2:
+                if (int(self.year_entry.get()) % 4 == 0 and int(self.year_entry.get()) % 100 != 0) or int(self.year_entry.get()) % 400 == 0:
+                    daylist = days_29
+                else:
+                    daylist = days_28
+            self.day_entry.config(values = daylist)
+        except:
+            pass
 
     def display_mainpage(self):
         self.frame.pack()
@@ -268,20 +309,22 @@ class MainPage:
         self.B2.forget()
         self.B3.forget()
         self.welcome_message.forget()
-        self.choose_date.grid(row=0, column=1)
-        self.year_label.grid(row=2, column=0, sticky=W)
-        self.year_entry.grid(row=2, column=2)
-        self.month_label.grid(row=3, column=0, sticky=W)
-        self.month_entry.grid(row=3, column=2)
-        self.day_label.grid(row=4, column=0, sticky=W)
-        self.day_entry.grid(row=4, column=2)
-        self.hour_label.grid(row=5, column=0, sticky=W)
-        self.hour_entry.grid(row=5, column=2)
-        self.minute_label.grid(row=6, column=0, sticky=W)
-        self.minute_entry.grid(row=6, column=2)
-        self.enter_button.grid(row=7, column=1)
+        self.choose_date.grid(row=0, column=0, columnspan=6)
+        self.blank.grid(row=1)
+        self.day_label.grid(row=2, column=0)
+        self.day_entry.grid(row=2, column=1)
+        self.month_label.grid(row=2, column=2)
+        self.month_entry.grid(row=2, column=3)
+        self.year_label.grid(row=2, column=4)
+        self.year_entry.grid(row=2, column=5)
+        self.hour_label.grid(row=4, column=0)
+        self.hour_entry.grid(row=4, column=1)
+        self.minute_label.grid(row=4, column=2)
+        self.minute_entry.grid(row=4, column=3)
+        self.blank2.grid(row=5)
+        self.enter_button.grid(row=6, column=0, columnspan=6)
         back_button = Button(self.frame, text="Back", bg="BLUE", width=10, command=lambda: back_to_prev_page(2))
-        back_button.grid(row=8, column=1)
+        back_button.grid(row=7, column=0, columnspan=6)
 
     def check(self):
         global input_date, input_day, input_time
@@ -313,6 +356,7 @@ class MainPage:
         self.minute_label.grid_forget()
         self.minute_entry.grid_forget()
         self.enter_button.grid_forget()
+        self.blank.grid_forget()
         back_button.grid_forget()
         back_button = Button(self.frame, text="Back", bg="BLUE",width=10, command=lambda: back_to_prev_page(3))
         self.choose_label.pack()
@@ -327,6 +371,7 @@ class MainPage:
         global input_day, input_date, input_time
         for i in self.stalls:
             if input_day in i:
+                pass
                 for j in range(len(self.stalls[i])):
                     for stall in times:
                         if input_day in range(0,5):
@@ -336,6 +381,7 @@ class MainPage:
                                 if datetime.datetime.combine(input_date,times[stall][0][0]) <= datetime.datetime.combine(input_date,input_time) <= datetime.datetime.combine(input_date+datetime.timedelta(days=1),times[stall][0][1]):
                                     self.stalls[i][j].pack(pady=5, fill=X)
                                 else:
+                                    # pass
                                     getattr(self,stall).forget()
                             else:
                                 if datetime.datetime.combine(input_date,times[stall][0][0]) <= datetime.datetime.combine(input_date,input_time) <= datetime.datetime.combine(input_date,times[stall][0][1]):
@@ -465,7 +511,7 @@ class McDonald:
     def calc_waiting_time(self, box, label, entry, button, quit_box):
         number = entry.get()
         if number.isnumeric() and 0 <= int(number):
-            label.destroy
+            label.destroy()
             entry.destroy()
             button.destroy()
             quit_box.destroy()
@@ -549,7 +595,7 @@ class SubWay:
     def calc_waiting_time(self, box, label, entry, button, quit_box):
         number = entry.get()
         if number.isnumeric() and 0 <= int(number):
-            label.destroy
+            label.destroy()
             entry.destroy()
             button.destroy()
             quit_box.destroy()
@@ -633,7 +679,7 @@ class PizzaHut:
     def calc_waiting_time(self, box, label, entry, button, quit_box):
         number = entry.get()
         if number.isnumeric() and 0 <= int(number):
-            label.destroy
+            label.destroy()
             entry.destroy()
             button.destroy()
             quit_box.destroy()
@@ -716,7 +762,7 @@ class KFC:
     def calc_waiting_time(self, box, label, entry, button, quit_box):
         number = entry.get()
         if number.isnumeric() and 0 <= int(number):
-            label.destroy
+            label.destroy()
             entry.destroy()
             button.destroy()
             quit_box.destroy()
@@ -799,7 +845,7 @@ class SandwichGuys:
     def calc_waiting_time(self, box, label, entry, button, quit_box):
         number = entry.get()
         if number.isnumeric() and 0 <= int(number):
-            label.destroy
+            label.destroy()
             entry.destroy()
             button.destroy()
             quit_box.destroy()
