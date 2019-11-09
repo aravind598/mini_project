@@ -52,6 +52,8 @@ def back_2():
     m.enter_button.grid_forget()
     m.blank.grid_forget()
     back_button.grid_forget()
+    m.blank2.grid_forget()
+    m.enter_button.grid_forget()
     m.welcome_message.pack()
     m.B1.pack(pady=10)
     m.B2.pack()
@@ -256,10 +258,6 @@ class MainPage:
         self.B3.forget()
         self.welcome_message.forget()
         self.choose_label.pack()
-        # for i in self.stalls:
-        #     if day_track in i:
-        #         for j in range(len(self.stalls[i])):
-        #             self.stalls[i][j].pack(pady=5, fill=X)
         input_day = day_track
         input_date = date_track
         input_time = time_track
@@ -310,6 +308,9 @@ class MainPage:
     def display_other_day_stalls(self):
         global back_button, input_day, input_time
         self.choose_date.grid_forget()
+        self.blank.grid_forget()
+        self.blank2.grid_forget()
+        self.enter_button.grid_forget()
         self.year_label.grid_forget()
         self.year_entry.grid_forget()
         self.month_label.grid_forget()
@@ -321,14 +322,9 @@ class MainPage:
         self.minute_label.grid_forget()
         self.minute_entry.grid_forget()
         self.enter_button.grid_forget()
-        self.blank.grid_forget()
         back_button.grid_forget()
         back_button = Button(self.frame, text="Back", bg="BLUE",width=10, command=lambda: back_to_prev_page(3))
         self.choose_label.pack()
-        # for i in self.stalls:
-        #     if other_day in i:
-        #         for j in range(len(self.stalls[i])):
-        #             self.stalls[i][j].pack(pady=5, fill=X)
         self.which_menu()
         back_button.pack(pady=10,fill=X)
 

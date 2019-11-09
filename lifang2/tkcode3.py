@@ -373,7 +373,7 @@ class MainPage:
                                 else:
                                     getattr(self,stall).forget()
 
-    # Function created to attach Stall Class to MainFrame Clas
+    # Function created to attach Stall Class to MainFrame Class
     def create_mcd(self):
         self.mcd = McDonald(self.frame)
 
