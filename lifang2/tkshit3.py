@@ -219,33 +219,14 @@ class MainPage:
 
         self.stalls = {(0, 1, 2, 3, 4, 5, 6): [self.mc_donalds, self.subway, self.pizza_hut, self.kfc], (0, 1, 2, 3, 4, 5): [self.sandwich_guys]}
 
-        # self.year_label = Label(self.frame, text="Year :")
-        # self.month_label = Label(self.frame, text="Month :")
-        # self.day_label = Label(self.frame, text="Day : ")
-        # self.hour_label = Label(self.frame, text="Hour : ")
-        # self.minute_label = Label(self.frame, text="Minute : ")
-        # self.year_entry = Entry(self.frame, width=6, )
-        # self.month_entry = Entry(self.frame, width=6)
-        # self.day_entry = Entry(self.frame, width=6)
-        # self.hour_entry = Entry(self.frame, width=6)
-        # self.minute_entry = Entry(self.frame, width=6)
-        global days_28, days_29, days_30, days_31, daylist
-        days_28 = [x for x in range(1,29)]
-        days_29 = [x for x in range(1,30)]
-        days_30 = [x for x in range(1,31)]
-        days_31 = [x for x in range(1,32)]
-        daylist = days_31
-
         self.year_label = Label(self.frame, text = " / ")
-        self.year_entry = ttk.Combobox(self.frame, values = [2019,2020,2021], width=5)
+        self.year_entry = ttk.Combobox(self.frame, values = [x for x in range(2019,2024)], width=5)
         self.month_label = Label(self.frame, text = " / ")
-        self.month_entry = ttk.Combobox(self.frame, values = [1,2,3,4,5,6,7,8,9,10,11,12], width=5)
-        self.year_entry.bind("<<ComboboxSelected>>", lambda _: self.daypicker())
-        self.month_entry.bind("<<ComboboxSelected>>", lambda _: self.daypicker())
+        self.month_entry = ttk.Combobox(self.frame, values = [x for x in range(1,13)], width=5)
         self.day_label = Label(self.frame, text = "Date: ")
-        self.day_entry = ttk.Combobox(self.frame, values = days_28, width=5)
+        self.day_entry = ttk.Combobox(self.frame, values = [x for x in range(1,32)], width=5)
         self.hour_label = Label(self.frame, text = "Time: ")
-        self.hour_entry = ttk.Combobox(self.frame, values = [x for x in range(0, 24)], width=5)
+        self.hour_entry = ttk.Combobox(self.frame, values = [x for x in range(0,24)], width=5)
         self.minute_label = Label(self.frame, text = " : ")
         self.minute_entry = ttk.Combobox(self.frame, values = ['{:02d}'.format(x) for x in range(0, 60)], width=5)
         self.enter_button = Button(self.frame, text=" ENTER ", command=self.check, activebackground="Green", width=10)
@@ -258,22 +239,6 @@ class MainPage:
         self.blank = Label(self.frame, text="  ")
         self.blank2 = Label(self.frame, text="  ")
         self.display_mainpage()
-
-    def daypicker(self):
-        global daylist
-        try:
-            if int(self.month_entry.get()) in {1,3,5,7,8,10,12}:
-                daylist = days_31
-            elif int(self.month_entry.get()) in {4,6,9,11}:
-                daylist = days_30
-            elif int(self.month_entry.get()) == 2:
-                if (int(self.year_entry.get()) % 4 == 0 and int(self.year_entry.get()) % 100 != 0) or int(self.year_entry.get()) % 400 == 0:
-                    daylist = days_29
-                else:
-                    daylist = days_28
-            self.day_entry.config(values = daylist)
-        except:
-            pass
 
     def display_mainpage(self):
         self.frame.pack()
