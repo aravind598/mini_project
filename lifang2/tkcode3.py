@@ -142,6 +142,7 @@ def back_to_prev_page(x):
         else:
             back_5()  # m.choice == 2 is the part where the prev page is the Date-Time input page
 
+    #Subway back button
     elif x == 5:
         m.sub.Welcome.grid_forget()
         m.date_text.grid_forget()
@@ -200,7 +201,7 @@ def back_to_prev_page(x):
 
 
 # Class deifinition for the main page
-# Atul Coded this 202 to 345
+# Atul Coded this 202 to 332
 class MainPage:
     def __init__(self, master):
         global back_button, day_track, date_track, str_time_track, list_of_days, input_day, input_time
@@ -364,16 +365,16 @@ class MainPage:
                                     if datetime.datetime.combine(input_date,times[stall][1][0]) <= datetime.datetime.combine(input_date,input_time) <= datetime.datetime.combine(input_date,times[stall][1][1]):
                                         self.stalls[i][j].pack(pady=5, fill=X)
                                     else:
-                                        getattr(self,stall).forget()
+                                        getattr(self, stall).forget()
                         #Sunday Menu in else block
                         else:
                             if times[stall][2] is not None:
                                 if times[stall][2][0] <= input_time <= times[stall][2][1]:
                                     self.stalls[i][j].pack(pady=5, fill=X)
                                 else:
-                                    getattr(self,stall).forget()
+                                    getattr(self, stall).forget()
 
-    # Function created to attach Stall Class to MainFrame Class
+    # Function created to attach attribute of Stall Class to MainFrame Class
     def create_mcd(self):
         self.mcd = McDonald(self.frame)
 
@@ -467,6 +468,7 @@ class McDonald:
         entry.pack()
         button = Button(box, text="Enter", width=10, command=lambda:self.calc_waiting_time(box, label, entry, button,
                                                                                            quit_box))
+
         button.pack()
         quit_box = Button(box, text="Cancel", width=10, command=box.destroy)
         quit_box.pack()
