@@ -21,7 +21,6 @@ in_times = open('times', 'r+b')
 times = pickle.load(in_times)
 in_times.close()
 
-
 # Universal back button coded by Atul
 # Back Button for Choose a store
 # From Choose a Store to MainFrame
@@ -228,9 +227,9 @@ class MainPage:
         self.welcome_message = Label(self.frame, text="Nanyang Technological University"
                                                       "\nWelcome to Canteen A Menu System ")
         self.B1 = Button(self.frame, text="View Today's stores", command=self.display_today_stalls, width=20,
-                         activebackground="Yellow", bg="grey", pady=10)
+                         activebackground="Yellow", pady=10)
         self.B2 = Button(self.frame, text="View stores by other dates", width=20, command=self.get_other_day_stall,
-                         activebackground="Yellow", bg="grey", pady=10)
+                         activebackground="Yellow", pady=10)
         self.B3 = Button(self.frame, text="Quit", width=20, bg="red", command=self.frame.quit)
 
         self.choice = 1
