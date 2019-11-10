@@ -7,7 +7,7 @@ menus = {'mc_donalds':[{'Hotcakes':'$4.95', 'Sausage McMuffin with Egg':'$4.20',
 'sandwich_guys':{'BBQ Pulled Pork':'$6.00', 'Philly Cheesesteak':'$7.00', 'Mexicana Grilled Chicken':'$6.00', 'Cubano':'$7.00'}}
 
 filename = 'menus'
-outfile = open(filename,'w+b')
+outfile = open(filename,'wb')
 
 pickle.dump(menus, outfile)
 outfile.close()

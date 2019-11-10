@@ -10,7 +10,7 @@ times = {'mc_donalds':[[time(7,0),time(0,0)],[time(7,0),time(0,0)],[time(10,0),t
 'sandwich_guys':[[time(10,0),time(20,0)],[time(10,0),time(15,0)],None]}
 
 filename = 'times'
-outfile = open(filename,'w+b')
+outfile = open(filename,'wb')
 
 pickle.dump(times, outfile)
 outfile.close()
