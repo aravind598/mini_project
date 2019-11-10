@@ -760,11 +760,6 @@ class KFC:
                 for j in range(len(m.stalls[i])):
                     m.stalls[i][j].grid_forget()
 
-        # self.item_1 = Label(frame, text="Fries")
-        # self.item_2 = Label(frame, text="McSpicy")
-        # self.price_item_1 = Label(frame, text="$ 1.00")
-        # self.price_item_2 = Label(frame, text="$ 2.00")
-        # self.menu = menus['kfc']
         self.menubar = Menu(window)
         self.showmenu(frame)
 
@@ -799,8 +794,7 @@ class KFC:
         else:
             t_saturday = "Saturday: Closed"
         if times['kfc_'][2] is not None:
-            t_sunday = "Sunday: " + times['kfc_'][2][0].strftime("%I:%M %p").lower() + " - " + times['kfc_'][2][
-                1].strftime("%I:%M %p").lower() + "\n\n"
+            t_sunday = "Sunday: " + times['kfc_'][2][0].strftime("%I:%M %p").lower() + " - " + times['kfc_'][2][1].strftime("%I:%M %p").lower() + "\n\n"
         else:
             t_sunday = "Sunday: Closed"
         string = t_weekday + t_saturday + t_sunday
