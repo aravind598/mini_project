@@ -4,6 +4,7 @@ import datetime
 from PIL import Image
 from tkinter import messagebox
 import pickle
+import os
 
 list_of_days = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
 date_track = datetime.date.today()
@@ -931,12 +932,20 @@ window.geometry("500x650")
 
 back_button = Button(window, text="Back", bg="blue", command=lambda: back_to_prev_page(1))
 
-ntulogo = PhotoImage(file="NTU.png")
-pizzahutlogo = PhotoImage(file="pizzahutlogo.png")
-kfclogo = PhotoImage(file="kfclogo.png")
-mcdonaldslogo = PhotoImage(file="mcdonaldslogo.png")
-subwaylogo = PhotoImage(file="subwaylogo.png")
-tsglogo = PhotoImage(file="tsglogo.png")
+base_folder = os.path.dirname(__file__)
+ntupath = os.path.join(base_folder, 'NTU.png')
+pizzahutpath = os.path.join(base_folder, 'pizzahutlogo.png')
+kfcpath = os.path.join(base_folder, 'kfclogo.png')
+mcdonaldspath = os.path.join(base_folder, 'mcdonaldslogo.png')
+subwaypath = os.path.join(base_folder, 'subwaylogo.png')
+tsgpath = os.path.join(base_folder, 'tsglogo.png')
+
+ntulogo = PhotoImage(file=ntupath)
+pizzahutlogo = PhotoImage(file=pizzahutpath)
+kfclogo = PhotoImage(file=kfcpath)
+mcdonaldslogo = PhotoImage(file=mcdonaldspath)
+subwaylogo = PhotoImage(file=subwaypath)
+tsglogo = PhotoImage(file=tsgpath)
 
 image_label = Label(window, image=ntulogo)
 image_label.pack()
