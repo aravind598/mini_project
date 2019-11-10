@@ -38,9 +38,9 @@ def back_1():
                 m.stalls[i][j].grid_forget()
     back_button.grid_forget()
     m.welcome_message.grid(row=0)
-    m.B1.grid(row=1,pady=5)
-    m.B2.grid(row=2,pady=5)
-    m.B3.grid(row=3,pady=5)
+    m.B1.grid(row=1,pady=5,sticky="EW")
+    m.B2.grid(row=2,pady=5,sticky="EW")
+    m.B3.grid(row=3,pady=5,sticky="EW")
 
 
 # Back button in the frame of the Date Time Input
@@ -63,9 +63,9 @@ def back_2():
     m.blank2.grid_forget()
     back_button.grid_forget()
     m.welcome_message.grid(row=0)
-    m.B1.grid(row=1,pady=5)
-    m.B2.grid(row=2,pady=5)
-    m.B3.grid(row=3,pady=5)
+    m.B1.grid(row=1,pady=5,sticky="Ew")
+    m.B2.grid(row=2,pady=5,sticky="EW")
+    m.B3.grid(row=3,pady=5,sticky="EW")
     back_button = Button(m.frame, text="Back", bg="BLUE", width=10,
                          command=lambda: back_to_prev_page(1))
 
@@ -93,10 +93,10 @@ def back_3():
     m.minute_label.grid(row=4, column=2)
     m.minute_entry.grid(row=4, column=3)
     m.blank2.grid(row=5)
-    m.enter_button.grid(row=6, column=0, columnspan=6)
+    m.enter_button.grid(row=6, column=0, columnspan=6, pady=5, sticky="EW")
     back_button = Button(m.frame, text="Back", bg="BLUE", width=10,
                          command=lambda: back_to_prev_page(2))
-    back_button.grid(row=7, column=0, columnspan=6)
+    back_button.grid(row=7, column=0, columnspan=6, pady=5, sticky="EW")
 
 
 # Back button from store menu to Choose a store page with previous page being
@@ -112,7 +112,7 @@ def back_4():
     #         for j in range(len(m.stalls[i])):
     #             m.stalls[i][j].pack(pady=5, fill=X)
     m.which_menu()
-    back_button.grid(row=10, column=0, columnspan=2)
+    back_button.grid(row=10, column=0, columnspan=2, sticky="EW")
 
 
 # Back button from store menu to Choose a store page with previous page being
@@ -128,7 +128,7 @@ def back_5():
     #         for j in range(len(m.stalls[i])):
     #             m.stalls[i][j].pack(pady=5, fill=X)
     m.which_menu()
-    back_button.grid(row=10, column=0, columnspan=2)
+    back_button.grid(row=10, column=0, columnspan=2, sticky="EW")
 
 
 # Main function in which the function of back to previous page function is called
@@ -273,9 +273,9 @@ class MainPage:
     def display_mainpage(self):
         self.frame.pack()
         self.welcome_message.grid(row=0)
-        self.B1.grid(row=1,pady=5)
-        self.B2.grid(row=2,pady=5)
-        self.B3.grid(row=3,pady=5)
+        self.B1.grid(row=1,pady=5,sticky="EW")
+        self.B2.grid(row=2,pady=5,sticky="EW")
+        self.B3.grid(row=3,pady=5,sticky="EW")
 
     # Displays function involving today's Stalls after the MainPage
     def display_today_stalls(self):
@@ -295,7 +295,7 @@ class MainPage:
         input_date = date_track
         input_time = time_track
         self.which_menu()
-        back_button.grid(row=5, column=0, columnspan=2, sticky="EW")
+        back_button.grid(row=5, column=0, columnspan=10, sticky="EW")
 
     # When no date is given then this function takes in the value of current date along with time inputted by user
 
@@ -323,7 +323,7 @@ class MainPage:
         input_day = day_track
         input_date = date_track
         self.which_menu()
-        back_button.grid(row=10, column=0, columnspan=2)
+        back_button.grid(row=10, column=0, columnspan=2, sticky="EW")
     # Gets the other day Stalls using any Input Dates
     def get_other_day_stall(self):
         global back_button, input_time, input_date, input_day
@@ -345,9 +345,9 @@ class MainPage:
         self.minute_label.grid(row=4, column=2)
         self.minute_entry.grid(row=4, column=3)
         self.blank2.grid(row=5)
-        self.enter_button.grid(row=6, column=0, columnspan=6)
+        self.enter_button.grid(row=6, column=0, columnspan=6, pady=5, sticky="EW")
         back_button = Button(self.frame, text="Back", bg="BLUE", width=10, command=lambda: back_to_prev_page(2))
-        back_button.grid(row=7, column=0, columnspan=6)
+        back_button.grid(row=7, column=0, columnspan=6, pady=5, sticky="EW")
 
     # Check the Date-Time input to see whether is it valid
     def check(self):
@@ -407,7 +407,7 @@ class MainPage:
         back_button = Button(self.frame, text="Back", bg="BLUE",width=10, command=lambda: back_to_prev_page(3))
         self.choose_label.grid(row=1, column=0, columnspan=2)
         self.which_menu()
-        back_button.grid(row=10, column=0, columnspan=2)
+        back_button.grid(row=10, column=0, columnspan=2, sticky="EW")
 
     # Function to choose What Menu to Display based on the Date-Time Function
     # Joshua coded this line 347 to 398
@@ -528,7 +528,7 @@ class McDonald:
                 value.grid(row=i, column=1, sticky="E", padx=60)
                 i += 1
         back_button = Button(frame, text="Back", bg="BLUE", width=10, command=lambda: back_to_prev_page(4))
-        back_button.grid(row=i, column=0, columnspan=10, pady=10)
+        back_button.grid(row=i, column=0, columnspan=2, pady=10, sticky="EW")
 
     # Dropdown Menu showing the The Opening and Closing Times
     def showtime(self):
@@ -620,7 +620,7 @@ class SubWay:
             value.grid(row=i, column=1, sticky="E", padx=60)
             i += 1
         back_button = Button(frame, text="Back", bg="BLUE", width=10, command=lambda: back_to_prev_page(5))
-        back_button.grid(row=i, column=0, columnspan=10, pady=10)
+        back_button.grid(row=i, column=0, columnspan=10, pady=10, sticky="EW")
 
     def showtime(self):
         t_weekday = "Weekdays: " + times['subway'][0][0].strftime("%I:%M %p").lower() + " - " + times['subway'][0][
@@ -706,7 +706,7 @@ class PizzaHut:
             value.grid(row=i, column=1, sticky="E", padx=60)
             i += 1
         back_button = Button(frame, text="Back", bg="BLUE", width=10, command=lambda: back_to_prev_page(6))
-        back_button.grid(row=i, column=0, columnspan=10, pady=10)
+        back_button.grid(row=i, column=0, columnspan=10, pady=10, sticky="EW")
 
     def showtime(self):
         t_weekday = "Weekdays: " + times['pizza_hut'][0][0].strftime("%I:%M %p").lower() + " - " + \
@@ -794,7 +794,7 @@ class KFC:
             value.grid(row=i, column=1, sticky="E", padx=60)
             i += 1
         back_button = Button(frame, text="Back", bg="BLUE", width=10, command=lambda: back_to_prev_page(7))
-        back_button.grid(row=i, column=0, columnspan=10, pady=10)
+        back_button.grid(row=i, column=0, columnspan=10, pady=10, sticky="EW")
 
     def showtime(self):
         t_weekday = "Weekdays: " + times['kfc_'][0][0].strftime("%I:%M %p").lower() + " - " + times['kfc_'][0][
@@ -880,7 +880,7 @@ class SandwichGuys:
             value.grid(row=i, column=1, sticky="E", padx=60)
             i += 1
         back_button = Button(frame, text="Back", bg="BLUE", width=10, command=lambda: back_to_prev_page(8))
-        back_button.grid(row=i, column=0, columnspan=10, pady=10)
+        back_button.grid(row=i, column=0, columnspan=10, pady=10, sticky="EW")
 
     def showtime(self):
         t_weekday = "Weekdays: " + times['sandwich_guys'][0][0].strftime("%I:%M %p").lower() + " - " + \
