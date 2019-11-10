@@ -265,7 +265,7 @@ class MainPage:
 
         self.back_button = Button(self.frame, text="Back", bg="BLUE", command=lambda: back_to_prev_page(1))
         self.choose_label = Label(self.frame, text="  Choose a store")
-        self.choose_date = Label(self.frame, text=" Select date/time from the dropdown boxes: ")
+        self.choose_date = Label(self.frame, text=" Select date/time from the dropdown boxes: \n(If no date is given, it will be assumed to be today)")
         self.blank = Label(self.frame, text="  ")
         self.blank2 = Label(self.frame, text="  ")
         self.display_mainpage()
