@@ -5,6 +5,15 @@ from PIL import Image
 from tkinter import messagebox
 import pickle
 import os
+import time
+import sys
+
+# Digital clock done by Atul
+def tick():
+    time_string=time.strftime("%d-%B-%Y  %H:%M:%S")
+    clock.config(text=time_string)
+    clock.after(200,tick)
+
 
 list_of_days = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
 date_track = datetime.date.today()
@@ -13,13 +22,18 @@ time_track = datetime.datetime.now().time()
 str_time_track = time_track.strftime("%H:%M:%S")
 
 # Pickle done by Joshua
-in_menus = open('menus', 'r+b')
-menus = pickle.load(in_menus)
-in_menus.close()
-
-in_times = open('times', 'r+b')
-times = pickle.load(in_times)
-in_times.close()
+try:
+    in_menus = open('menus', 'rb')
+    menus = pickle.load(in_menus)
+    in_menus.close()
+except:
+    sys.exit(0)
+try:
+    in_times = open('times', 'rb')
+    times = pickle.load(in_times)
+    in_times.close()
+except:
+    sys.exit(0)
 
 # Universal back button coded by Atul
 # Back Button for Choose a store
@@ -243,7 +257,7 @@ class MainPage:
         self.stalls = {(0, 1, 2, 3, 4, 5, 6): [self.mc_donalds, self.subway, self.pizza_hut, self.kfc_],
                        (0, 1, 2, 3, 4, 5): [self.sandwich_guys]}
 
-        #Dropdown input coded by Joshua
+        #Dropdown boxes coded by Joshua
         self.year_label = Label(self.frame, text = " / ")
         self.year_entry = ttk.Combobox(self.frame, values = ['']+[x for x in range(2019,2024)], state='readonly', width=8)
         self.month_label = Label(self.frame, text = " / ")
@@ -260,7 +274,7 @@ class MainPage:
 
         self.back_button = Button(self.frame, text="Back", bg="BLUE", fg="WHITE", command=lambda: back_to_prev_page(1))
         self.choose_label = Label(self.frame, text="  Choose a store")
-        self.choose_date = Label(self.frame, text=" Select date/time from the dropdown boxes: \n(If no date is given, it will be assumed to be today)")
+        self.choose_date = Label(self.frame, text=" Select date/time from the dropdown boxes: \n(If no date is given, today's date will be used)")
         self.blank = Label(self.frame, text="  ")
         self.blank2 = Label(self.frame, text="  ")
         self.display_mainpage()
@@ -360,7 +374,7 @@ class MainPage:
                 pass
 
         except:
-            if self.year_entry.get()=="" and self.month_entry.get()=="" and self.day_entry.get()=="":
+            if self.year_entry.get()=="" and self.month_entry.get()=="" and self.day_entry.get()=="" and self.hour_entry.get().isnumeric() and self.minute_entry.get().isnumeric():
                 valid_date = True
             else:
                 valid_date = False
@@ -915,8 +929,10 @@ class SandwichGuys:
 
 window = Tk()
 window.title("Canteen System")
-window.geometry("500x650")
-
+window.geometry("500x750")
+clock = Label(window, font=('times',30,'bold'), bg='white')
+clock.pack(fill=X)
+tick()
 back_button = Button(window, text="Back", bg="BLUE", fg="WHITE", command=lambda: back_to_prev_page(1))
 
 base_folder = os.path.dirname(__file__)
