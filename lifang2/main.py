@@ -361,7 +361,8 @@ class MainPage:
             integer_year = int(self.year_entry.get())
 
         except ValueError:
-            if self.year_entry.get()=="" and self.month_entry.get()=="" and self.day_entry.get()=="" and self.hour_entry.get().isnumeric() and self.minute_entry.get().isnumeric():
+            if self.year_entry.get()=="" and self.month_entry.get()=="" and self.day_entry.get()=="" and \
+                    self.hour_entry.get().isnumeric() and self.minute_entry.get().isnumeric():
                 valid_date = True
             else:
                 valid_date = False
